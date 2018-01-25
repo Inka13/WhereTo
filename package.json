@@ -1,0 +1,42 @@
+{
+  "name": "voting-app",
+  "version": "1.0.0",
+  "description": "freecodecamp full stack challenge",
+  "main": "index.js",
+  "engines": {
+    "node": "8.9.3"
+  },
+  "scripts": {
+    "heroku-postbuild": "cd client && yarn --production=false && yarn run build",
+    "test": "echo `Error: no test specified` && exit 1",
+    "client": "cd client && yarn start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+  },
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "concurrently": "^3.5.1",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "http": "0.0.0",
+    "jsonwebtoken": "^8.1.0",
+    "mongodb": "^3.0.1",
+    "mongoose": "^4.13.9",
+    "morgan": "^1.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Inka13/voting-app.git"
+  },
+  "keywords": [
+    "voting",
+    "polling",
+    "application",
+    "freecodecamp"
+  ],
+  "author": "Inka Pelin",
+  "license": "ISC"
+}
