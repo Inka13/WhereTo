@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Header from './Header';
 //import Banner from './Banner';
-import PlacesList from './PlacesList';
+import PlacesList from './PlaceList';
 import SigninForm from './SigninForm';
 import LoginForm from './LoginForm';
-import CreateForm from './CreateForm';
+
 import ActivePlace from './ActivePlace';
 import './App.css';
 import {bindActionCreators} from 'redux';
@@ -27,16 +27,9 @@ class App extends Component {
           <div className="formback">
            <LoginForm /></div> : <span/>}
 
-           {this.props.form==='create' ? 
-          <div className="formback">
-           <CreateForm /></div> : <span/>}
-
-           {this.props.form==='alert' ? 
-          <div className="formback">
-           <Alert /></div> : <span/>}
-
           <Header />
-          {this.props.activePlace.id ? <ActivePlace/> : <PlacesList />}
+          <div id="title"><span>WhereTo?</span></div>
+          {this.props.places.length>0 ? <PlacesList /> : <ActivePlace/>}
           {/*this.props.user.name ? <span/> : <Banner />*/}
 
           
@@ -47,15 +40,15 @@ class App extends Component {
 }; 
 function matchDispatchToProps(dispatch) {
     return bindActionCreators({
-      getAllPlaces,
-      getIP
+      getAllPlaces
     }, dispatch);
 }
 function mapStateToProps(state) {
     return {
       form: state.form,
       user: state.user,
-      activePlace: state.activePlace
+      activePlace: state.activePlace,
+      places: state.places
     };
 }
 export default connect(mapStateToProps, matchDispatchToProps)(App);

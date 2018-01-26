@@ -28,7 +28,7 @@ function matchDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     return {
-        polls: state.polls
+        places: state.places
     };
 }
 export default connect(mapStateToProps, matchDispatchToProps)(Menu);

@@ -39,4 +39,4 @@ function mapStateToProps(state) {
         user: state.user
     };
 }
-export default connect(mapStateToProps, matchDispatchToProps)(ActivePoll);
+export default connect(mapStateToProps, matchDispatchToProps)(ActivePlace);

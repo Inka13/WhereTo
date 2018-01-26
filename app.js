@@ -4,7 +4,7 @@ const express = require('express');
 const morgan =require('morgan');
 const mongoose = require('mongoose');
 const app = express();
-const placeRoutes = require('./routes/poll');
+const placeRoutes = require('./routes/place');
 const userRoutes = require('./routes/user');
 const path = require('path');
 

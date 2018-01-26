@@ -3,16 +3,19 @@ import {connect} from 'react-redux';
 class Place extends Component {
     
     render() {
-        const voted = this.props.place.voters.indexOf(this.props.user._id);
+        const reference = this.props.place.photo;
+        const review = this.props.place.review;
+        const rating = this.props.place.rating;
+        console.log(review);
         return (
-            <div className="place-box" onClick={() => this.props.getOne(this.props.place.id)}>
-                {voted>-1 ? <span className="votedmark">VOTED</span> : <span/>}
-                <div className="titles">{this.props.place.title}</div>
-                <div className="pollbox-bottom">
-                    <span className="legend"><span>By: </span>{this.props.place.posted_by}</span>
-                    <span className="legend votes"><span>Votes: </span>{this.props.place.votes}</span>
-                    <span className="legend on"><span>On: </span>{this.props.place.posted_on.slice(0, 10)}</span>
 
+            <div className="placebox" onClick={() => this.props.getOne(this.props.place.id)}>
+                <div className="images"><img src={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&maxheight=120&photoreference="+reference+"&key=AIzaSyBC2HQHoBkubhbKcsApT9D94AzJ9LmruOM"} alt="bar icon"/></div>
+                <div className="titles">{this.props.place.name}</div>
+                <div className="placebox-text">
+                    <span className="legend"><span>Address: </span>{this.props.place.address}</span>
+                    <span className="legend"><span>{review}</span>{this.props.place.address}</span>
+                    <span className="legend"><span>{rating}</span>{this.props.place.address}</span>
                 </div>
 
             </div>

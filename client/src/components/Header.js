@@ -1,9 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {showSignupForm, showLoginForm, getAllPolls, 
-        getMyPolls,
-        createNewPoll, showcreateNewPollForm, 
+import {showSignupForm, showLoginForm, getAllPlaces,
         userLogout} from '../actions/index';
 
 class Header extends React.Component {
@@ -19,7 +17,7 @@ class Header extends React.Component {
         } else myOptions= <div/>;
         return (
             <header>
-                <div id="title" onClick={() => this.props.getAllPolls()}>Poller</div>
+                
                 <span className="icon" onClick={() => this.openmenu()}>&#9776;</span>
                  <div ref="nav" className="nav">
                     
@@ -36,10 +34,7 @@ function matchDispatchToProps(dispatch) {
     return bindActionCreators({
         showSignupForm,
         showLoginForm,
-        getAllPolls,
-        getMyPolls,
-        createNewPoll,
-        showcreateNewPollForm,
+        getAllPlaces,
         userLogout
     }, dispatch);
 }

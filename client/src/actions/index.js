@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const getAllPlaces = () => {
 	return(dispatch) => {
-		return axios.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&type=restaurant&keyword=cruise&key=AIzaSyBJPEGL_qaEUYuoeTQzPPP6Q55WZAXkXaQ")
+		return axios.get("/places")
 			.then((response) => {
 				dispatch(gotPlaces(response.data.places))
 			})
@@ -10,17 +10,17 @@ export const getAllPlaces = () => {
 };
 export const getLatest = () => {
 	return(dispatch) => {
-		return axios.get("/polls/latest")
+		return axios.get("/places/latest")
 			.then((response) => {
-				dispatch(gotPolls(response.data.polls))
+				dispatch(gotPlaces(response.data.polls))
 			})
 	}
 };
 export const getPopular = () => {
 	return(dispatch) => {
-		return axios.get("/polls/popular")
+		return axios.get("/places/popular")
 			.then((response) => {
-				dispatch(gotPolls(response.data.polls))
+				dispatch(gotPlaces(response.data.polls))
 			})
 	}
 };
@@ -81,9 +81,9 @@ export const submitLogin = (name, password) => {
 
 export const getOnePlace = (id) => {
 	return(dispatch) => {
-		return axios.get("/polls/" + id)
+		return axios.get("/places/" + id)
 			.then((response) => {
-				dispatch(gotOnePoll(response.data.poll))
+				dispatch(gotOnePlace(response.data.poll))
 			}).catch(err => {
 				console.log(err);
 			})
@@ -97,18 +97,15 @@ export const gotOnePlace = (poll) => {
 		form: ''
 	};
 };
-export const updatePlace = (userId, pollId, options) => {
+export const updatePlace = (userId, placeId) => {
 	return(dispatch) => {
-		console.log(userId , pollId, options);
-		return axios.patch("/polls/" + pollId, { 
-        		id: userId,
-        		options
+		console.log(userId , placeId);
+		return axios.patch("/places/" + placeId, { 
+        		id: userId
       		})
 			.then((response) => {
-				console.log(pollId);
-				if(response.data.error) dispatch(alertMe(response.data.error));
 				dispatch(userVoted());
-				dispatch(getOnePoll(pollId))
+				dispatch(getOnePlace(placeId))
 			})
 	}
 };
