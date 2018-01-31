@@ -8,7 +8,7 @@ class PlacesList extends Component {
     createList() {
         const list = [];
          this.props.places.forEach((place, i) => {
-            console.log(place.review)
+            //console.log(place.review)
               list.push(<Place key={i} place={place} getOne={this.props.getOnePlace}/>);
         });
         return list;
@@ -18,6 +18,7 @@ class PlacesList extends Component {
             return (
             <div>
             <Menu/>
+            <div className="clear" />
                 <main>
                     
                     {this.createList()}    

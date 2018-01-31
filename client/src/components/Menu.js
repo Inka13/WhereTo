@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {getLatest, getPopular} from '../actions/index';
+import {getPopular} from '../actions/index';
 
 class Menu extends Component {
     
@@ -9,7 +9,7 @@ class Menu extends Component {
         if(this.props.polls){   
             return (
                     <div id="search">
-                        <div className="searchopt" onClick={() => this.props.getLatest()}>Latest</div>
+                        <div className="searchopt" onClick={() => this.props.getPopular()}>Latest</div>
                         <div className="searchopt" onClick={() => this.props.getPopular()}>Popular</div>
                         {/*<div className="searchopt"><a href="https://www.facebook.com/sharer/sharer.php?u=https://inka13.github.io/Portfolio-official/" target="_blank">
   Share
@@ -22,7 +22,6 @@ class Menu extends Component {
 }
 function matchDispatchToProps(dispatch) {
     return bindActionCreators({
-        getLatest,
         getPopular
     }, dispatch);
 }

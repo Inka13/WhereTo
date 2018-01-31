@@ -28,8 +28,8 @@ class App extends Component {
            <LoginForm /></div> : <span/>}
 
           <Header />
-          <div id="title"><span>WhereTo?</span></div>
-          {this.props.places.length>0 ? <PlacesList /> : <ActivePlace/>}
+          
+          {this.props.activePlace.id ? <ActivePlace/> : <PlacesList />}
           {/*this.props.user.name ? <span/> : <Banner />*/}
 
           

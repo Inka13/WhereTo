@@ -2,19 +2,19 @@
     box-sizing: border-box;
 }
 body {
-    background: url('http://all4desktop.com/data_images/original/4235873-cool-background.jpg')no-repeat center center fixed;
+    background: white;
     height: 100%; 
 
     /* Center and scale the image nicely */
     background-size: cover;
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'Anton', sans-serif;
 }
 header {
     width: 100%;
     background: black;
-    border: 2px solid white;
+    
     color: white;
-    height: 56px;
+    height: 60px;
     overflow: show;
 }
 .nav {
@@ -27,7 +27,7 @@ header {
     background: white;
     box-shadow: 3px 3px 20px;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 40px;
     
 }
 
@@ -35,11 +35,12 @@ header {
     clear: both;
 }
 #title {
+    float: left;
     color: white;
     font-size: 50px;
-    text-align: center;
-    margin-top: -58px;
-
+    text-align: left;
+    padding: 5px;
+    margin-top: -10px;
 }
 
 .myoptions {
@@ -93,51 +94,90 @@ main {
 }
 .placebox {
     background: rgba(0,0,0,0.5);
-    width: 51%;
-    margin-top: 40px;
-    border: 2px dashed white;
-    padding: 20px;
+    width: 26%;
+    margin-top: 80px;
+    border: 1px solid grey;
     color: white;
 }
 .images {
-    width: 200px;
-    height: 120px;
-    float: left;
+    width: 100%;
+    position: relative;
+    
     text-align: center;
 }
+.images img {
 
-
+    max-width: 100%;
+    height: 200px;
+    margin: auto;
+}
+.cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background: radial-gradient(rgba(0, 210, 210, 0.4) 50%,rgba(255, 30, 250, 0.4) 100%);
+    
+}
+.star img {
+    width: 20px;
+}
+.star {
+font-family: sans-serif;
+    position: absolute;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    padding: 3px 5px 5px 5px;
+}
+.like img {
+    width: 30px;
+}
+.like {
+    font-family: sans-serif;
+    position: absolute;
+    z-index: 3;
+    margin-left: 15%;
+    display: flex;
+    align-items: center;
+    padding: 3px 5px 5px 5px;
+}
 .placebox:hover {
     
 }
-.titles {
-    text-align: center;
-    padding: 0 0 8px 0;
-    font-size: 1.2rem;
-    margin-top: 10px;
-    overflow: hidden;
-} 
-
-.votedmark {
-    transform: rotate(-45deg);
-    color: rgb(255, 201, 14);
-    border: 2px solid rgb(255, 201, 14);
-    position: absolute;
-    margin-left: -8px;
-    margin-top: 5px;
-}
 .placebox-text {
+    margin: auto;
     
-    height: 40px;
-    width: 100%;
-    
+    width: 100%;  
+}
+.review {
+    width: 90%;
+    margin: auto;
+}
+.titles {
+    position: absolute;
+    margin-left: 17px;
+    text-align: center;
+    font-size: 1.8rem;
+    margin-top: -20px;
+    z-index: 20;
+    background: rgb(210, 240, 0);
+    color: rgb(60, 60, 60);
+    transform: rotate(-5deg);
+    width: 18%;
+    border-radius: 3px;
+
+} 
+.titlesBig {
+    position: relative;
+    text-align: left;
+    margin-bottom: 20px;
 }
 .legend {
-    width: 50%;
     font-size: 0.8rem;
-    padding: 3px 5px 0 10px;
-    float: left;
+    padding: 3px 10px 5px 5px;
     color: white;
+
 }
 .on {
     width: 100%;

@@ -6,22 +6,21 @@ export const getAllPlaces = () => {
 			.then((response) => {
 				dispatch(gotPlaces(response.data.places))
 			})
+			.catch(function (error) {
+    		console.log(error);
+  		});
 	}
 };
-export const getLatest = () => {
-	return(dispatch) => {
-		return axios.get("/places/latest")
-			.then((response) => {
-				dispatch(gotPlaces(response.data.polls))
-			})
-	}
-};
+
 export const getPopular = () => {
 	return(dispatch) => {
 		return axios.get("/places/popular")
 			.then((response) => {
 				dispatch(gotPlaces(response.data.polls))
 			})
+			.catch(function (error) {
+    		console.log(error);
+  		});
 	}
 };
 export const gotPlaces = (places) => {
@@ -61,6 +60,9 @@ export const submitSignup = (name, email, password) => {
 					dispatch(submitLogin(name, password));
 				}
 			})
+			.catch(function (error) {
+    		console.log(error);
+  		});
 	}
 };
 export const submitLogin = (name, password) => {
@@ -83,17 +85,18 @@ export const getOnePlace = (id) => {
 	return(dispatch) => {
 		return axios.get("/places/" + id)
 			.then((response) => {
-				dispatch(gotOnePlace(response.data.poll))
+				dispatch(gotOnePlace(response.data.place))
 			}).catch(err => {
 				console.log(err);
 			})
 	}
 };
-export const gotOnePlace = (poll) => {
-	console.log(poll);
+
+export const gotOnePlace = (place) => {
+	console.log(place);
 	return {
 		type: "GOT_ONE_PLACE",
-		poll,
+		place,
 		form: ''
 	};
 };
@@ -107,6 +110,9 @@ export const updatePlace = (userId, placeId) => {
 				dispatch(userVoted());
 				dispatch(getOnePlace(placeId))
 			})
+			.catch(function (error) {
+    		console.log(error);
+  		});
 	}
 };
 export const userVoted = () => {
