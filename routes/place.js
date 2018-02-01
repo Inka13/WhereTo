@@ -6,9 +6,10 @@ const PlaceController = require('../controllers/place');
 
 router.get('/popular', PlaceController.getPopular);
 
+router.get('/all', PlaceController.getAllPlaces);
+
 router.get('/:placeId', PlaceController.getOnePlace);
 
-router.get('/', PlaceController.getAllPlaces);
 
 router.patch('/:placeId', PlaceController.updatePlace);
 

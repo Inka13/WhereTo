@@ -9,12 +9,14 @@ exports.getOnePlace = (req, res, next) => {
 				//console.log(details.data.result);
 				const detail = details.data.result;
 				const place = {
-					id: detail.place_id,
+					id: id,
 					name: detail.name,
 					address: detail.vicinity,
-					photo: detail.photos ? detail.photos[0]["photo_reference"] : "",
+					photos: detail.photos ? detail.photos : [{"photo_reference": ""}],
 					rating: detail.rating,
-					review: detail.reviews ? detail.reviews[0].text : '',
+					reviews: detail.reviews ? detail.reviews : [{"text": ""}],
+					website: detail.website,
+					phone: detail.international_phone_number
 				}
 				
 				res.status(200).json({
@@ -63,53 +65,36 @@ exports.getPopular = (req, res, next) => {
 
 exports.getAllPlaces = (req, res, next) => {
 	//const places=[];
-	axios.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=45.55111,18.69389&radius=5000&type=bar&key=AIzaSyBC2HQHoBkubhbKcsApT9D94AzJ9LmruOM")
+	const long = req.query.long;
+	const lat = req.query.lat; 
+	console.log(long, lat);
+	axios.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + long + "&radius=5000&type=bar&key=AIzaSyBC2HQHoBkubhbKcsApT9D94AzJ9LmruOM")
 	.then(places => {
+		//console.log(places.data.results[0].photos);
 		const placeList = places.data.results.map((place) => {
 				return {
 					id: place.place_id,
+					icon: place.icon,
 					name: place.name,
 					address: place.vicinity,
-					photo: place.photos ? place.photos[0]["photo_reference"] : "",
+					photos: place.photos ? place.photos : [{"photo_reference": ""}],
 					rating: place.rating,
 					review: ''
 				}
 			});
 		//console.log(placeList);
-		
 		res.status(200).json({
 			count: placeList.length,
 			response: 'Fetched places.',
 			places: placeList
 		})
-		/*
-		res.status(200).json({
-			count: places.length,
-			response: 'Fetched places.',
-			places : places.data.results.map((place) => {
-				return {
-					id: place.place_id,
-					name: place.name,
-					address: place.vicinity,
-					photo: place.photos ? place.photos[0]["photo_reference"] : "",
-					rating: place.rating,
-					review: ''
-				}
-			})
-		})
-		*/		
 	})
 	.catch(err => {
 		console.log(err);
 	})
 	
 }
-
-
-
-
 exports.updatePlace = (req, res, next) => {
-	
 		res.status(200).json({
 			response: 'going'
 		});

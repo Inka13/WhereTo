@@ -12,8 +12,17 @@ import {connect} from 'react-redux';
 import {getAllPlaces} from '../actions/index';
 
 class App extends Component {
-  componentWillMount() {
-    this.props.getAllPlaces();
+  componentDidMount() {
+    
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+        const long = position.coords.longitude;
+        const lat =  position.coords.latitude;
+        this.props.getAllPlaces(long, lat);
+        console.log(long, lat);
+        });
+    } 
+    
   }
   render() {
       return (

@@ -9,8 +9,8 @@ class Menu extends Component {
         if(this.props.polls){   
             return (
                     <div id="search">
-                        <div className="searchopt" onClick={() => this.props.getPopular()}>Latest</div>
-                        <div className="searchopt" onClick={() => this.props.getPopular()}>Popular</div>
+                        <div className="searchopt" onClick={() => this.props.getPopular()}>Bars</div>
+                        <div className="searchopt" onClick={() => this.props.getPopular()}>Restaurants</div>
                         {/*<div className="searchopt"><a href="https://www.facebook.com/sharer/sharer.php?u=https://inka13.github.io/Portfolio-official/" target="_blank">
   Share
 </a></div> */}

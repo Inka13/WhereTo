@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 body {
-    background: white;
+    background: black;
     height: 100%; 
 
     /* Center and scale the image nicely */
@@ -25,10 +25,9 @@ header {
 #active {
     width: 90%;
     background: white;
-    box-shadow: 3px 3px 20px;
+    padding-top: 15px;
     margin: auto;
-    margin-top: 40px;
-    
+    margin-top: -15px; 
 }
 
 .clear {
@@ -96,20 +95,31 @@ main {
     background: rgba(0,0,0,0.5);
     width: 26%;
     margin-top: 80px;
-    border: 1px solid grey;
+    border: 3px solid white;
     color: white;
 }
 .images {
     width: 100%;
     position: relative;
-    
     text-align: center;
 }
 .images img {
-
     max-width: 100%;
     height: 200px;
     margin: auto;
+}
+.imagesBig {
+    width: 30%;
+   float: left;
+   text-align: center;
+}
+.imagesBig img{
+    margin-left: 2%;
+    margin-top: 10px;
+    max-width: 100%;
+    height: 250px;
+    border:2px solid rgb(255, 30, 250);
+ 
 }
 .cover {
     position: absolute;
@@ -123,25 +133,23 @@ main {
     width: 20px;
 }
 .star {
-font-family: sans-serif;
-    position: absolute;
-    z-index: 3;
-    display: flex;
-    align-items: center;
-    padding: 3px 5px 5px 5px;
-}
-.like img {
-    width: 30px;
-}
-.like {
     font-family: sans-serif;
+    font-weight: bold;
     position: absolute;
     z-index: 3;
-    margin-left: 15%;
     display: flex;
     align-items: center;
     padding: 3px 5px 5px 5px;
 }
+.starBig {
+    position: relative;
+    float: left;
+
+}
+.starBig img {
+    width: 40px;
+}
+
 .placebox:hover {
     
 }
@@ -150,15 +158,16 @@ font-family: sans-serif;
     
     width: 100%;  
 }
-.review {
-    width: 90%;
-    margin: auto;
+
+.titles img {
+    width: 25px;
+    padding-right: 5px;
 }
 .titles {
     position: absolute;
     margin-left: 17px;
     text-align: center;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     margin-top: -20px;
     z-index: 20;
     background: rgb(210, 240, 0);
@@ -170,14 +179,34 @@ font-family: sans-serif;
 } 
 .titlesBig {
     position: relative;
-    text-align: left;
-    margin-bottom: 20px;
+    
+    margin-top: 40px;
+
 }
 .legend {
-    font-size: 0.8rem;
-    padding: 3px 10px 5px 5px;
-    color: white;
-
+    font-size: 1.2rem;
+    padding: 3px 30px;
+    color: black;
+    float: right;
+    
+    text-align: right;
+}
+.map {
+    float: right;
+    width: 30%;
+    margin-right: 1%;
+    height: 300px;
+    border: 1px solid black;
+}
+.reviews {
+    float: left;
+    padding: 20px;
+    text-align: justify;
+    width: 37%;
+    margin: auto;
+}
+.review {
+    padding: 10px;
 }
 .on {
     width: 100%;

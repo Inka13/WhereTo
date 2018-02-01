@@ -1,9 +1,15 @@
 import axios from 'axios';
 
-export const getAllPlaces = () => {
+export const getAllPlaces = (long, lat) => {
 	return(dispatch) => {
-		return axios.get("/places")
+		return axios.get("/places/all/", {
+			params: {
+				long,
+				lat
+			}
+		})
 			.then((response) => {
+				console.log(response.data.places);
 				dispatch(gotPlaces(response.data.places))
 			})
 			.catch(function (error) {
