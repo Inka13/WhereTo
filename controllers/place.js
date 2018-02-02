@@ -16,7 +16,9 @@ exports.getOnePlace = (req, res, next) => {
 					rating: detail.rating,
 					reviews: detail.reviews ? detail.reviews : [{"text": ""}],
 					website: detail.website,
-					phone: detail.international_phone_number
+					phone: detail.international_phone_number,
+					lng: detail.geometry.location.lng,
+					lat: detail.geometry.location.lat
 				}
 				
 				res.status(200).json({

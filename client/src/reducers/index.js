@@ -4,12 +4,12 @@ import PlacesReducer from './places';
 import ActivePlaceReducer from './activePlace'
 import FormReducer from './form';
 import TokenReducer from './token';
-import LongLatReducer from './longlat';
+//import LongLatReducer from './longlat';
 
 const reducers = combineReducers({
 	user: UserReducer,
 	places: PlacesReducer,
-	longLat: LongLatReducer,
+	//longLat: LongLatReducer,
 	activePlace: ActivePlaceReducer,
 	form: FormReducer,
 	token: TokenReducer
