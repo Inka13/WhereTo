@@ -2,7 +2,7 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {updatePlace} from '../actions/index';
-import Menu from './Menu';
+//import Menu from './Menu';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 class ActivePlace extends React.Component {
     
@@ -21,7 +21,7 @@ class ActivePlace extends React.Component {
         const reviews = this.props.activePlace.reviews ? this.props.activePlace.reviews.map(review => {
             return <div className="review">
                         <div className="review-top">
-                            <span><img src={review.profile_photo_url} /></span>
+                            <span><img src={review.profile_photo_url} alt="review author"/></span>
                             <span>{review.author_name}</span>
                             <span><img src="https://cdn2.iconfinder.com/data/icons/snipicons/500/star-128.png" alt="star"/></span>
                             <span>{review.rating}</span>

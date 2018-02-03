@@ -65,6 +65,10 @@ header {
 .login:hover {
     color: rgb(181, 230, 29);
 }
+#search-input {
+    width: 200px;
+    margin-right: 10px;
+}
 main {
 
     width: 80%;
@@ -353,6 +357,7 @@ button {
   .imagesBig {
     width: 46%;
     float: right;
+    margin-right: 2%;
   }
   .place-details {
     width: 50%;
@@ -419,6 +424,7 @@ main {
   .imagesBig {
     width: 100%;
     float: right;
+
   }
   .place-details {
     width: 96%;

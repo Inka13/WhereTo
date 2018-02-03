@@ -21,7 +21,7 @@ class Header extends React.Component {
                 <span className="icon" onClick={() => this.openmenu()}>&#9776;</span>
                  <div ref="nav" className="nav">
                     
-                    <div className="myoptions" onClick={() => this.props.getAllPolls()}>Home</div>
+                    <div className="myoptions" onClick={() => this.props.getAllPlaces(this.props.longlat[0], this.props.longlat[1], "bar")}>Home</div>
                     {myOptions}
                     <div className="signin" onClick={this.props.user.name ? () => this.props.userLogout() : () => this.props.showSignupForm()}>{this.props.user.name ? 'Sign Out' : 'Sign In'}</div>
                     <div className="login" onClick={this.props.user.name ? () => {} : () => this.props.showLoginForm()}>{this.props.user.name ? this.props.user.name : 'Log in'}</div>
@@ -40,6 +40,7 @@ function matchDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     return {
+        longlat: state.longlat,
         user: state.user
     };
 }

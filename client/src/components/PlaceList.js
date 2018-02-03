@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {getOnePlace} from '../actions/index';
-import Menu from './Menu';
+//import Menu from './Menu';
 import Place from './Place';
 class PlacesList extends Component {
     createList() {
@@ -17,7 +17,7 @@ class PlacesList extends Component {
         if(this.props.places){   
             return (
             <div>
-            <Menu/>
+            
             <div className="clear" />
                 <main>
                     

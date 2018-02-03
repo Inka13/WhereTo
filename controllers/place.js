@@ -31,6 +31,27 @@ exports.getOnePlace = (req, res, next) => {
 			})
 } 
 		
+exports.getCityLocation = (req, res, next) => {
+	const city = req.params.city;
+	axios.get("http://getcitydetails.geobytes.com/GetCityDetails?fqcn=" + city)
+			.then(details => {
+				console.log(details.data);
+				const detail = details.data;
+				const loc = {
+					name: detail.geobytesfqcn,
+					lng: detail.geobyteslongitude,
+					lat: detail.geobyteslatitude
+				}
+				
+				res.status(200).json({
+					response: 'Fetched place.',
+					loc
+				});	
+			})
+			.catch(err => {
+				console.log(err);
+			})
+} 
 
 exports.getPopular = (req, res, next) => {
 	Poll.find({}).sort({votes: -1}).limit(8).select('question options voters posted_on posted_by _id')
@@ -69,8 +90,9 @@ exports.getAllPlaces = (req, res, next) => {
 	//const places=[];
 	const long = req.query.long;
 	const lat = req.query.lat; 
+	const type = req.query.type;
 	console.log(long, lat);
-	axios.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + long + "&radius=5000&type=bar&key=AIzaSyBC2HQHoBkubhbKcsApT9D94AzJ9LmruOM")
+	axios.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + long + "&radius=5000&type=" + type + "&key=AIzaSyBC2HQHoBkubhbKcsApT9D94AzJ9LmruOM")
 	.then(places => {
 		//console.log(places.data.results[0].photos);
 		const placeList = places.data.results.map((place) => {

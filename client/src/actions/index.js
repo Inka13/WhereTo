@@ -1,11 +1,12 @@
 import axios from 'axios';
 
-export const getAllPlaces = (long, lat) => {
+export const getAllPlaces = (long, lat, type) => {
 	return(dispatch) => {
 		return axios.get("/places/all/", {
 			params: {
 				long,
-				lat
+				lat,
+				type
 			}
 		})
 			.then((response) => {
@@ -18,6 +19,19 @@ export const getAllPlaces = (long, lat) => {
 	}
 };
 
+export const getCityLocation = (city) => {
+	return(dispatch) => {
+		return axios.get("/places/loc/" + city)
+			.then((response) => {
+				console.log(response.data.loc);
+				dispatch(gotLocation(response.data.loc));
+				dispatch(getAllPlaces(response.data.loc.lng, response.data.loc.lat, "bar"));
+			})
+			.catch(function (error) {
+    		console.log(error);
+  		});
+	}
+};
 export const getPopular = () => {
 	return(dispatch) => {
 		return axios.get("/places/popular")
@@ -104,6 +118,13 @@ export const gotOnePlace = (place) => {
 		type: "GOT_ONE_PLACE",
 		place,
 		form: ''
+	};
+};
+export const gotLocation = (loc) => {
+	console.log(loc);
+	return {
+		type: "GOT_LOCATION",
+		loc
 	};
 };
 export const updatePlace = (userId, placeId) => {

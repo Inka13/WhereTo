@@ -1,30 +1,37 @@
 import React, { Component } from 'react';
 import Header from './Header';
 //import Banner from './Banner';
+import Menu from './Menu';
 import PlacesList from './PlaceList';
 import SigninForm from './SigninForm';
 import LoginForm from './LoginForm';
 
+//import allTheCities from 'all-the-cities';
 import ActivePlace from './ActivePlace';
 import './App.css';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {getAllPlaces} from '../actions/index';
+import {getAllPlaces, gotLocation} from '../actions/index';
 
 class App extends Component {
   componentDidMount() {
-    
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
-        const long = position.coords.longitude;
-        const lat =  position.coords.latitude;
-        this.props.getAllPlaces(long, lat);
-        console.log(long, lat);
-        });
+    if(this.props.longlat.length){
+      this.props.getAllPlaces(this.props.longlat[0], this.props.longlat[1], "bar");
+    } else {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+              const lng = position.coords.longitude;
+              const lat = position.coords.latitude;
+              this.props.gotLocation({lng, lat});
+              this.props.getAllPlaces(lng, lat, "bar");
+
+            });
+        }
     } 
     
   }
   render() {
+    console.log(this.props.longlat);
       return (
         <div className="app">
 
@@ -37,7 +44,7 @@ class App extends Component {
            <LoginForm /></div> : <span/>}
 
           <Header />
-          
+          <Menu />
           {this.props.activePlace.id ? <ActivePlace/> : <PlacesList />}
           {/*this.props.user.name ? <span/> : <Banner />*/}
 
@@ -49,7 +56,8 @@ class App extends Component {
 }; 
 function matchDispatchToProps(dispatch) {
     return bindActionCreators({
-      getAllPlaces
+      getAllPlaces,
+      gotLocation
     }, dispatch);
 }
 function mapStateToProps(state) {
@@ -57,7 +65,8 @@ function mapStateToProps(state) {
       form: state.form,
       user: state.user,
       activePlace: state.activePlace,
-      places: state.places
+      places: state.places,
+      longlat: state.longlat
     };
 }
 export default connect(mapStateToProps, matchDispatchToProps)(App);
