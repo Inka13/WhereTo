@@ -11,11 +11,15 @@ body {
 }
 header {
     width: 100%;
-    background: black;
+    background: radial-gradient(rgba(0, 210, 210, 0.6) 50%,rgba(255, 30, 250, 0.6) 100%);;
     
     color: white;
-    height: 60px;
+    
     overflow: show;
+}
+.shadow {
+    height: 35px;
+    background: linear-gradient(to bottom, transparent, black)
 }
 .nav {
     position: relative;
@@ -34,10 +38,10 @@ header {
     clear: both;
 }
 #title {
-    float: left;
+    
     color: white;
     font-size: 50px;
-    text-align: left;
+    text-align: center;
     padding: 5px;
     margin-top: -10px;
 }
@@ -66,8 +70,17 @@ header {
     color: rgb(181, 230, 29);
 }
 #search-input {
+    text-align: center;
     width: 200px;
     margin-right: 10px;
+    margin-top: -15px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid white; 
+    font-size: 3rem;
+    font-family: 'Anton', sans-serif;
+    color: white;
+    height: 3rem;
 }
 main {
 
@@ -82,17 +95,35 @@ main {
     width: 80%;
     position: relative;
     margin: auto;
-    margin-top: 5px;
-    border-bottom: 2px solid rgb(112, 146, 190);
+    margin-top: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
     height: 47px;
 }
+
 .searchopt {
     color: rgb(112, 146, 190);
     float: left;
-    padding: 13px 15px;
+    font-family: 'Kaushan Script', cursive;
+    display: flex;
+    font-size: 1.3rem;
+
 }
 .searchopt:hover {
     color: white;
+
+}
+.searchopt img {
+    height: 30px;
+    padding-right: 5px;
+}
+#city-search {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    text-align: center;
 
 }
 .placebox {
@@ -116,6 +147,7 @@ main {
     width: 30%;
    float: left;
    text-align: center;
+   margin-top: -68px;
 }
 .imagesBig img{
     margin-left: 2%;
@@ -187,8 +219,8 @@ main {
 } 
 .titlesBig {
     position: relative;
+    margin-top: 95px;
     
-    margin-top: 40px;
 
 }
 .legend {
@@ -327,7 +359,7 @@ input {
     color: rgb(112, 146, 190);
 
 }
-button {
+.search button {
     padding: 9px;
     background: rgb(112, 146, 190);
     font-size: 15px;
@@ -341,6 +373,15 @@ button {
     margin: auto;
     margin-bottom: 50px;
     margin-top: 10px;
+}
+#city-search button, #city-search span  {
+    background: transparent;
+    border: none;
+    font-family: 'Anton', sans-serif;
+    font-size: 1rem;
+    height: 25px;
+    color: rgb(210, 240, 0);
+    width: 40px;
 }
 .icon {
     display: none;
@@ -358,6 +399,7 @@ button {
     width: 46%;
     float: right;
     margin-right: 2%;
+    margin-top: 0;
   }
   .place-details {
     width: 50%;
@@ -379,8 +421,11 @@ button {
 main {
     width: 100%;
   }
-.pollbox {
+.placebox {
     width: 28%; 
+  }
+  .titles {
+    width: 23%;
   }
 }
 
@@ -410,9 +455,12 @@ main {
     flex-flow: column wrap;
   }
  
-  .pollbox {
+  .placebox {
     width: 44%;
    
+  }
+  .titles {
+    width: 35%;
   }
   #map {
     width: 98%;
@@ -435,8 +483,11 @@ main {
   width: 90%;
   margin-left: 5%;
   }
-  .pollbox {
+  .placebox {
     width: 80%;
    
+  }
+  .titles {
+    width: 65%;
   }
   }

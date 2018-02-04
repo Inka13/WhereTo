@@ -1,30 +1,37 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {getPopular, getCityLocation, getAllPlaces} from '../actions/index';
+import {getPopular, getAllPlaces} from '../actions/index';
 
 class Menu extends Component {
-    submit = (e) => {
-        e.preventDefault();
-        this.props.getCityLocation(this.refs.city.value);
-    }
+   
     render() {
          
             return (
                     <div id="search">
-                        <form onSubmit={this.submit}>
-                                <span className="searchopt">City:</span>
-                                <input id="search-input" ref="city" type="text" required/>
-                                <button type="submit">Search</button>
-                        </form>
-                        <div className="searchopt" onClick={() => this.props.getAllPlaces(this.props.longlat[0], this.props.longlat[1], "bar")}>Bars</div>
-                        <div className="searchopt" onClick={() => this.props.getAllPlaces(this.props.longlat[0], this.props.longlat[1], "restaurant")}>Restaurants</div>
-                        <div className="searchopt" onClick={() => this.props.getAllPlaces(this.props.longlat[0], this.props.longlat[1], "coctail")}>Coctails</div>
-                        <div className="searchopt" onClick={() => this.props.getAllPlaces(this.props.longlat[0], this.props.longlat[1], "lodging")}>Lodging</div>
-                        <div className="searchopt" onClick={() => this.props.getAllPlaces(this.props.longlat[0], this.props.longlat[1], "wine")}>Wine</div>
-                        <div className="searchopt" onClick={() => this.props.getAllPlaces(this.props.longlat[0], this.props.longlat[1], "fast-food")}>Fast food</div>
-                        <div className="searchopt" onClick={() => this.props.getAllPlaces(this.props.longlat[0], this.props.longlat[1], "beer")}>Beer</div>
-                        <div className="searchopt" onClick={() => this.props.getAllPlaces(this.props.longlat[0], this.props.longlat[1], "hostel")}>Hostel</div>
+                        
+                        <div className="searchopt" onClick={() => this.props.getAllPlaces(this.props.longlat[0], this.props.longlat[1], "cafe")}>
+                            <img src="https://maps.gstatic.com/mapfiles/place_api/icons/cafe-71.png" alt="icon"/>
+                        Cafe</div>
+                        <div className="searchopt" onClick={() => this.props.getAllPlaces(this.props.longlat[0], this.props.longlat[1], "bar")}>
+                        <img src="https://maps.gstatic.com/mapfiles/place_api/icons/bar-71.png" alt="icon"/>
+                        Bar</div>
+                        <div className="searchopt" onClick={() => this.props.getAllPlaces(this.props.longlat[0], this.props.longlat[1], "night_club")}>
+                            <img src="https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png" alt="icon"/>
+                        Night Club</div>
+                        <div className="searchopt" onClick={() => this.props.getAllPlaces(this.props.longlat[0], this.props.longlat[1], "restaurant")}>
+                            <img src="https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png" alt="icon"/>
+                        Restaurant</div>
+                        
+                        <div className="searchopt" onClick={() => this.props.getAllPlaces(this.props.longlat[0], this.props.longlat[1], "lodging")}>
+                            <img src="https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png" alt="icon"/>
+                        Lodging</div>
+                        <div className="searchopt" onClick={() => this.props.getAllPlaces(this.props.longlat[0], this.props.longlat[1], "museum")}>
+                            <img src="https://maps.gstatic.com/mapfiles/place_api/icons/museum-71.png" alt="icon"/>
+                        Museum</div>
+                        
+
+
                     </div>
             );
         
@@ -33,7 +40,6 @@ class Menu extends Component {
 function matchDispatchToProps(dispatch) {
     return bindActionCreators({
         getPopular,
-        getCityLocation,
         getAllPlaces
     }, dispatch);
 }

@@ -4,7 +4,9 @@ import PlacesReducer from './places';
 import ActivePlaceReducer from './activePlace'
 import FormReducer from './form';
 import TokenReducer from './token';
+import TypeReducer from './placestype';
 import LongLatReducer from './longlat';
+import CityReducer from './city';
 
 const reducers = combineReducers({
 	user: UserReducer,
@@ -12,7 +14,9 @@ const reducers = combineReducers({
 	longlat: LongLatReducer,
 	activePlace: ActivePlaceReducer,
 	form: FormReducer,
-	token: TokenReducer
+	token: TokenReducer,
+	placestype: TypeReducer,
+	city: CityReducer
 });
 
 export default reducers;

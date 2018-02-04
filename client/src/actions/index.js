@@ -1,24 +1,40 @@
 import axios from 'axios';
 
-export const getAllPlaces = (long, lat, type) => {
+export const getAllPlaces = (long, lat, type, token = '') => {
 	return(dispatch) => {
 		return axios.get("/places/all/", {
 			params: {
 				long,
 				lat,
-				type
+				type,
+				token
 			}
 		})
 			.then((response) => {
 				console.log(response.data.places);
-				dispatch(gotPlaces(response.data.places))
+				dispatch(gotPlaces(response.data.places, type, response.data.city))
 			})
 			.catch(function (error) {
     		console.log(error);
   		});
 	}
 };
-
+export const getCity = (long, lat) => {
+	console.log(long, lat);
+	return(dispatch) => {
+		return axios.get("/places/city/", {
+			long,
+			lat
+		})
+			.then((response) => {
+				console.log(response.data.city);
+				return response.data.city;
+			})
+			.catch(function (error) {
+    		console.log(error);
+  		});
+	}
+};
 export const getCityLocation = (city) => {
 	return(dispatch) => {
 		return axios.get("/places/loc/" + city)
@@ -43,10 +59,12 @@ export const getPopular = () => {
   		});
 	}
 };
-export const gotPlaces = (places) => {
+export const gotPlaces = (places, placestype, city) => {
 	return {
 		type: "GOT_PLACES",
-		places
+		places,
+		city,
+		placestype
 	};
 };
 
@@ -113,7 +131,7 @@ export const getOnePlace = (id) => {
 };
 
 export const gotOnePlace = (place) => {
-	console.log(place);
+	//console.log(place);
 	return {
 		type: "GOT_ONE_PLACE",
 		place,
@@ -121,7 +139,7 @@ export const gotOnePlace = (place) => {
 	};
 };
 export const gotLocation = (loc) => {
-	console.log(loc);
+	//console.log(loc);
 	return {
 		type: "GOT_LOCATION",
 		loc

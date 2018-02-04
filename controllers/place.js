@@ -30,12 +30,31 @@ exports.getOnePlace = (req, res, next) => {
 				console.log(err);
 			})
 } 
-		
+exports.getCity = (req, res, next) => {
+	const long = req.query.long;
+	const lat = req.query.lat;
+	console.log(long, lat);
+	axios.get('http://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + long + '&sensor=true')
+			.then(details => {
+				console.log(details.results[0]);
+				//const detail = details.data;
+				//const city = detail.results;
+				
+				res.status(200).json({
+					response: 'Fetched place.',
+					city: 'Zagreb'
+				});	
+			})
+			.catch(err => {
+				console.log(err);
+			})
+} 
+	
 exports.getCityLocation = (req, res, next) => {
 	const city = req.params.city;
 	axios.get("http://getcitydetails.geobytes.com/GetCityDetails?fqcn=" + city)
 			.then(details => {
-				console.log(details.data);
+				//console.log(details.data);
 				const detail = details.data;
 				const loc = {
 					name: detail.geobytesfqcn,
@@ -91,10 +110,13 @@ exports.getAllPlaces = (req, res, next) => {
 	const long = req.query.long;
 	const lat = req.query.lat; 
 	const type = req.query.type;
-	console.log(long, lat);
-	axios.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + long + "&radius=5000&type=" + type + "&key=AIzaSyBC2HQHoBkubhbKcsApT9D94AzJ9LmruOM")
+	//console.log(long, lat);
+	const next_page_token = req.query.token;
+	axios.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + long + "&radius=10000&type=" + type + "&key=AIzaSyBC2HQHoBkubhbKcsApT9D94AzJ9LmruOM" + next_page_token)
 	.then(places => {
 		//console.log(places.data.results[0].photos);
+		//console.log(places.data.next_page_token);
+		
 		const placeList = places.data.results.map((place) => {
 				return {
 					id: place.place_id,
@@ -107,8 +129,11 @@ exports.getAllPlaces = (req, res, next) => {
 				}
 			});
 		//console.log(placeList);
-		res.status(200).json({
+		
+	res.status(200).json({
 			count: placeList.length,
+			city: placeList[0].address.split(',')[1],
+			pagetoken: places.data.next_page_token,
 			response: 'Fetched places.',
 			places: placeList
 		})
@@ -117,6 +142,9 @@ exports.getAllPlaces = (req, res, next) => {
 		console.log(err);
 	})
 	
+	//console.log(next_page_token);
+	//console.log(placeList);
+		
 }
 exports.updatePlace = (req, res, next) => {
 		res.status(200).json({
