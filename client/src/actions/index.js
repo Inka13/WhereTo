@@ -11,7 +11,7 @@ export const getAllPlaces = (long, lat, type, token = '') => {
 			}
 		})
 			.then((response) => {
-				console.log(response.data.places);
+				console.log(response.data.city);
 				dispatch(gotPlaces(response.data.places, type, response.data.city))
 			})
 			.catch(function (error) {
@@ -48,17 +48,6 @@ export const getCityLocation = (city) => {
   		});
 	}
 };
-export const getPopular = () => {
-	return(dispatch) => {
-		return axios.get("/places/popular")
-			.then((response) => {
-				dispatch(gotPlaces(response.data.polls))
-			})
-			.catch(function (error) {
-    		console.log(error);
-  		});
-	}
-};
 export const gotPlaces = (places, placestype, city) => {
 	return {
 		type: "GOT_PLACES",
@@ -67,7 +56,6 @@ export const gotPlaces = (places, placestype, city) => {
 		placestype
 	};
 };
-
 export const showSignupForm = () => {
 	return {
 		type: "SHOW_FORM",
@@ -85,7 +73,6 @@ export const hideForm = () => {
 		type: "HIDE_FORM"
 	};
 };
-
 export const submitSignup = (name, email, password) => {
 	return(dispatch) => {
 		return axios.post("/users/signup", {
@@ -118,8 +105,17 @@ export const submitLogin = (name, password) => {
   		});
 	}
 };
-
 export const getOnePlace = (id) => {
+	return(dispatch) => {
+		return axios.get("/places/db/" + id)
+			.then((response) => {
+				response.data.place ? dispatch(gotOnePlace(response.data.place)) : dispatch(getOnePlaceFromAPI(id));
+			}).catch(err => {
+				console.log(err);
+			})
+	}
+};
+export const getOnePlaceFromAPI = (id) => {
 	return(dispatch) => {
 		return axios.get("/places/" + id)
 			.then((response) => {
@@ -128,8 +124,7 @@ export const getOnePlace = (id) => {
 				console.log(err);
 			})
 	}
-};
-
+}; 
 export const gotOnePlace = (place) => {
 	//console.log(place);
 	return {
@@ -152,7 +147,7 @@ export const updatePlace = (userId, placeId) => {
         		id: userId
       		})
 			.then((response) => {
-				dispatch(userVoted());
+				if(response.data.error) dispatch(alertMe(response.data.error));
 				dispatch(getOnePlace(placeId))
 			})
 			.catch(function (error) {
@@ -160,13 +155,12 @@ export const updatePlace = (userId, placeId) => {
   		});
 	}
 };
-export const userVoted = () => {
+export const alertMe = () => {
 	return {
-		type: "USER_VOTED"
+		type: "NOT_SIGNED_IN",
+		form: 'alert'
 	};
 }
-
-
 export const userLogin = (data) => {
 	return {
 		type: "USER_LOGGED_IN",
@@ -175,9 +169,6 @@ export const userLogin = (data) => {
 		form: ''
 	};
 };
-
-
-
 export const userLogout = () => {
 	return {
 		type: "USER_LOGGED_OUT"

@@ -6,9 +6,10 @@ class Place extends Component {
     render() {
         const reference = this.props.place.photos ? this.props.place.photos[0]["photo_reference"] : "";
         const rating = this.props.place.rating;
+        console.log(this.props.place);
         return (
 
-            <div className="placebox" onClick={() => this.props.getOne(this.props.place.id)}>
+            <div className="placebox" onClick={() => this.props.getOne(this.props.place.place_id)}>
                 <div className="star">
                     
                     

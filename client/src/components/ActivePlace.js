@@ -1,14 +1,17 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {updatePlace} from '../actions/index';
+import {updatePlace, alertMe} from '../actions/index';
 //import Menu from './Menu';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 class ActivePlace extends React.Component {
-    
+    going = () => {
+        this.props.user._id ? this.props.updatePlace(this.props.user._id, this.props.activePlace.place_id) : this.props.alertMe();
+    }
 
 
     render() {
+        // google Map integration
         const MyMap = withScriptjs(withGoogleMap((props) =>
             <GoogleMap
                 defaultZoom={12}
@@ -18,8 +21,8 @@ class ActivePlace extends React.Component {
         ));
         const name = this.props.activePlace.name;
         const rating = this.props.activePlace.rating;
-        const reviews = this.props.activePlace.reviews ? this.props.activePlace.reviews.map(review => {
-            return <div className="review">
+        const reviews = this.props.activePlace.reviews ? this.props.activePlace.reviews.map((review, i) => {
+            return <div key={i} className="review">
                         <div className="review-top">
                             <span><img src={review.profile_photo_url} alt="review author"/></span>
                             <span>{review.author_name}</span>
@@ -34,6 +37,7 @@ class ActivePlace extends React.Component {
         }) : <span />;
         const address = this.props.activePlace.address;
         const phone = this.props.activePlace.phone;
+        const going = this.props.activePlace.going || '0';
         return (
             <div>
                 <div className="titles titlesBig">{name}</div>
@@ -57,8 +61,10 @@ class ActivePlace extends React.Component {
                             </span>
                             <span> {rating}</span>
                         </div>
+                        
                         <div className="legend">{address}</div>
                         <div className="legend">{phone}</div>
+                        <div className="going" onClick={this.going}>{going + " "}GOING</div>
                     </div>
                     <div className="reviews">{reviews}</div>
                     <div className="imagesBig">{photos}</div>
@@ -71,7 +77,7 @@ class ActivePlace extends React.Component {
 }
 function matchDispatchToProps(dispatch) {
     return bindActionCreators({
-        
+        alertMe,
         updatePlace
     }, dispatch);
 }

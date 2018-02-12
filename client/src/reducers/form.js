@@ -8,7 +8,7 @@ function form(state='', action) {
 			return '';
 		case 'GOT_PLACES':
 			return '';
-		case 'ALREADY_VOTED':
+		case 'NOT_SIGNED_IN':
 			return 'alert';
 		 default:
 		 	return state;	

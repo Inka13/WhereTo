@@ -4,7 +4,6 @@ const checkAuth = require('../middleware/check-auth');
 
 const PlaceController = require('../controllers/place');
 
-router.get('/popular', PlaceController.getPopular);
 
 router.get('/all', PlaceController.getAllPlaces);
 
@@ -12,8 +11,9 @@ router.get('/city', PlaceController.getCity);
 
 router.get('/loc/:city', PlaceController.getCityLocation);
 
-router.get('/:placeId', PlaceController.getOnePlace);
+router.get('/db/:placeId', PlaceController.getOnePlaceFromDB);
 
+router.get('/:placeId', PlaceController.getOnePlace);
 
 router.patch('/:placeId', PlaceController.updatePlace);
 

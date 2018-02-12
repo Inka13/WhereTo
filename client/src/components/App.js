@@ -5,7 +5,7 @@ import Menu from './Menu';
 import PlacesList from './PlaceList';
 import SigninForm from './SigninForm';
 import LoginForm from './LoginForm';
-
+import Alert from './Alert';
 //import allTheCities from 'all-the-cities';
 import ActivePlace from './ActivePlace';
 import './App.css';
@@ -44,9 +44,13 @@ class App extends Component {
           <div className="formback">
            <LoginForm /></div> : <span/>}
 
+           {this.props.form==='alert' ? 
+          <div className="formback">
+           <Alert /></div> : <span/>}
+
           <Header />
           <Menu />
-          {this.props.activePlace.id ? <ActivePlace/> : <PlacesList />}
+          {this.props.activePlace.place_id ? <ActivePlace/> : <PlacesList />}
           {/*this.props.user.name ? <span/> : <Banner />*/}
 
           

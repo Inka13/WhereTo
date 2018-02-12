@@ -1,5 +1,5 @@
 {
-  "name": "voting-app",
+  "name": "where-to-app",
   "version": "1.0.0",
   "description": "freecodecamp full stack challenge",
   "main": "index.js",
@@ -30,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Inka13/voting-app.git"
+    "url": "https://github.com/Inka13/whereto.git"
   },
   "keywords": [
     "voting",

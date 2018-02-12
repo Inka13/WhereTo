@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {getPopular, getAllPlaces} from '../actions/index';
+import {getAllPlaces} from '../actions/index';
 
 class Menu extends Component {
    
@@ -39,7 +39,6 @@ class Menu extends Component {
 }
 function matchDispatchToProps(dispatch) {
     return bindActionCreators({
-        getPopular,
         getAllPlaces
     }, dispatch);
 }

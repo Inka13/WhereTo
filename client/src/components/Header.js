@@ -14,26 +14,18 @@ class Header extends React.Component {
         this.props.getCityLocation(this.refs.city.value);
     }
     render() {
-        let myOptions;
         
-        if(this.props.user.name) {
-            myOptions = <div><div className="myoptions" onClick={() => this.props.getMyPolls(this.props.user._id)}>My Polls</div>
-                            <div className="myoptions" onClick={() => this.props.showcreateNewPollForm()}>Create new</div></div>;
-        } else myOptions= <div/>;
         return (
             <header>
-                <div id="title" onClick={() => this.props.getAllPlaces(this.props.longlat[0], this.props.longlat[1], this.props.placestype)}><span>WhereTo?</span></div>
-                <span className="icon" onClick={() => this.openmenu()}>&#9776;</span>
-                {/* <div ref="nav" className="nav">
-                    
-                    <div className="myoptions" onClick={() => this.props.getAllPlaces(this.props.longlat[0], this.props.longlat[1], this.props.placestype)}>Home</div>
-                    {myOptions}
+                 <div ref="nav" className="nav">  
                     <div className="signin" onClick={this.props.user.name ? () => this.props.userLogout() : () => this.props.showSignupForm()}>{this.props.user.name ? 'Sign Out' : 'Sign In'}</div>
                     <div className="login" onClick={this.props.user.name ? () => {} : () => this.props.showLoginForm()}>{this.props.user.name ? this.props.user.name : 'Log in'}</div>
-                </div> */}
+                </div> 
+                <div id="title" onClick={() => this.props.getAllPlaces(this.props.longlat[0], this.props.longlat[1], this.props.placestype)}><span>WhereTo?</span></div>
+                <span className="icon" onClick={() => this.openmenu()}>&#9776;</span>
                 <form onSubmit={this.submit} id="city-search">
                                 <span className="searchopt">City:</span>
-                                <input id="search-input" ref="city" type="text" defaultValue={this.props.city ? this.props.city : ''}/>
+                                <input id="search-input" ref="city" type="text" placeholder={this.props.city ? this.props.city : ''}/>
                                 <button type="submit" className="searchopt">Search</button>
                         </form>
                 <div className="shadow" />

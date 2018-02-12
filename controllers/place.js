@@ -1,15 +1,31 @@
-const Poll = require('../models/poll');
+const Place = require('../models/place');
 const mongoose = require('mongoose');
 const axios = require('axios');
 
+exports.getOnePlaceFromDB = (req, res, next) => {
+	const id = req.params.placeId;
+	Place.findOne({place_id: id}).exec()
+			.then(place => {
+				//console.log(place);
+				res.status(200).json({
+					response: 'Fetched place.',
+					place
+				});	
+			})
+			.catch(err => {
+				console.log(err);
+			})
+} 
 exports.getOnePlace = (req, res, next) => {
 	const id = req.params.placeId;
+	//console.log(id);
 	axios.get("https://maps.googleapis.com/maps/api/place/details/json?placeid="+id+"&key=AIzaSyBC2HQHoBkubhbKcsApT9D94AzJ9LmruOM")
 			.then(details => {
 				//console.log(details.data.result);
 				const detail = details.data.result;
-				const place = {
-					id: id,
+				const place = new Place({
+					_id: new mongoose.Types.ObjectId(),
+					place_id: id,
 					name: detail.name,
 					address: detail.vicinity,
 					photos: detail.photos ? detail.photos : [{"photo_reference": ""}],
@@ -18,13 +34,30 @@ exports.getOnePlace = (req, res, next) => {
 					website: detail.website,
 					phone: detail.international_phone_number,
 					lng: detail.geometry.location.lng,
-					lat: detail.geometry.location.lat
-				}
-				
-				res.status(200).json({
-					response: 'Fetched place.',
-					place
-				});	
+					lat: detail.geometry.location.lat,
+					goers: [],
+					going: 0
+				});
+				place.save().then(result => {		
+					const placeA = {
+						place_id: id,
+						name: detail.name,
+						address: detail.vicinity,
+						photos: detail.photos ? detail.photos : [{"photo_reference": ""}],
+						rating: detail.rating,
+						reviews: detail.reviews ? detail.reviews : [{"text": ""}],
+						website: detail.website,
+						phone: detail.international_phone_number,
+						lng: detail.geometry.location.lng,
+						lat: detail.geometry.location.lat,
+						goers: [],
+						going: 0
+					};
+					res.status(200).json({
+						response: 'Fetched place.',
+						place: placeA
+					});	
+			})
 			})
 			.catch(err => {
 				console.log(err);
@@ -72,39 +105,6 @@ exports.getCityLocation = (req, res, next) => {
 			})
 } 
 
-exports.getPopular = (req, res, next) => {
-	Poll.find({}).sort({votes: -1}).limit(8).select('question options voters posted_on posted_by _id')
-	.populate('posted_by')
-	.exec()
-	.then(polls => {
-		res.status(200).json({
-			count: polls.length,
-			response: 'Fetched polls.',
-			polls : polls.map(poll => {
-				return {
-					id: poll._id,
-					question: poll.question,
-					options: poll.options,
-					posted_by: poll.posted_by.name,
-					posted_on: poll.posted_on,
-					votes: poll.voters.length,
-					voters: poll.voters,
-					request: {
-						type: 'GET',
-						url: 'http://localhost:3000/polls/' + poll.id
-					}
-				}
-			})
-		});			
-	})
-	.catch(err => {
-		console.log(err);
-		res.status(400).json({
-			response: 'No polls yet.'
-		});
-	})
-}
-
 exports.getAllPlaces = (req, res, next) => {
 	//const places=[];
 	const long = req.query.long;
@@ -118,8 +118,9 @@ exports.getAllPlaces = (req, res, next) => {
 		//console.log(places.data.next_page_token);
 		
 		const placeList = places.data.results.map((place) => {
+
 				return {
-					id: place.place_id,
+					place_id: place.place_id,
 					icon: place.icon,
 					name: place.name,
 					address: place.vicinity,
@@ -147,9 +148,37 @@ exports.getAllPlaces = (req, res, next) => {
 		
 }
 exports.updatePlace = (req, res, next) => {
-		res.status(200).json({
-			response: 'going'
+	const id = req.params.placeId;
+	let userId = req.body.id;
+	let goers = [];
+	Place.findOne({place_id: id}).exec()
+	.then(place => {
+		if(place.goers.indexOf(userId)!==-1) {
+			goers = [...place.goers, userId];
+			Place.update({ place_id: id }, { $set: {goers: goers}, $inc: {going: -1} })
+			.then(result => {
+				res.status(200).json({
+					place: result,
+					response: 'Place updated.',
+				})
+			})
+		} else {
+			goers = [...place.goers, userId];
+			Place.update({ place_id: id }, { $set: {goers: goers}, $inc: {going: 1} })
+			.then(result => {
+				res.status(200).json({
+					place: result,
+					response: 'Place updated.',
+				});
+			})
+		}
+	})	
+	.catch(err => {
+		console.log(err);
+		res.status(500).json({
+			response: err
 		});
+	});	
 	
 }
 
