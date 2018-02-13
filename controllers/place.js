@@ -153,8 +153,10 @@ exports.updatePlace = (req, res, next) => {
 	let goers = [];
 	Place.findOne({place_id: id}).exec()
 	.then(place => {
-		if(place.goers.indexOf(userId)!==-1) {
-			goers = [...place.goers, userId];
+		const index = place.goers.indexOf(userId);
+		if(index!==-1) {
+			goers.splice(index, 1);
+			console.log(goers);
 			Place.update({ place_id: id }, { $set: {goers: goers}, $inc: {going: -1} })
 			.then(result => {
 				res.status(200).json({
